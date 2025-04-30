@@ -17,10 +17,13 @@ public class Inquiry extends BaseEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @Column(nullable = false, length = 20)
     private String title;
 
+    @Column(nullable = false)
     private String body;
 
+    @Column(nullable = false)
     private Boolean isReplied;
 
     private String replyContent;
