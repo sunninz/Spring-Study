@@ -20,7 +20,7 @@ public class MemberAgree {
     private Member member;
 
     @ManyToOne
-    @JoinColumn(name = "member_id")
+    @JoinColumn(name = "terms_id")
     private Terms terms;
 
 }

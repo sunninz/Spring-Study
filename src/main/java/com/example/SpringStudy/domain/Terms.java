@@ -1,11 +1,12 @@
 package com.example.SpringStudy.domain;
 
 import com.example.SpringStudy.domain.common.BaseEntity;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import com.example.SpringStudy.domain.mapping.MemberAgree;
+import jakarta.persistence.*;
 import lombok.*;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Getter
@@ -23,5 +24,8 @@ public class Terms extends BaseEntity {
     private String body;
 
     private Boolean optional;
+
+    @OneToMany(mappedBy = "terms", cascade = CascadeType.ALL)
+    private List<MemberAgree> memberAgreeList = new ArrayList<>();
 
 }

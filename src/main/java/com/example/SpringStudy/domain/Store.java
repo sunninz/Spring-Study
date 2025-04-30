@@ -4,6 +4,9 @@ import com.example.SpringStudy.domain.common.BaseEntity;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Entity
 @Getter
 @Builder
@@ -26,5 +29,12 @@ public class Store extends BaseEntity {
     @ManyToOne
     @JoinColumn(name = "region_id")
     private Region region;
+
+    @OneToMany(mappedBy = "store", cascade = CascadeType.ALL)
+    private List<Review> reviewList = new ArrayList<>();
+
+
+    @OneToMany(mappedBy = "store", cascade = CascadeType.ALL)
+    private List<Mission> missionList = new ArrayList<>();
 
 }

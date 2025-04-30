@@ -1,8 +1,12 @@
 package com.example.SpringStudy.domain;
 
 import com.example.SpringStudy.domain.common.BaseEntity;
+import com.example.SpringStudy.domain.mapping.MemberMission;
 import jakarta.persistence.*;
 import lombok.*;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Getter
@@ -22,4 +26,7 @@ public class Mission extends BaseEntity {
     @ManyToOne
     @JoinColumn(name = "store_id")
     private Store store;
+
+    @OneToMany(mappedBy = "mission", cascade = CascadeType.ALL)
+    private List<MemberMission> memberMissionList = new ArrayList<>();
 }
