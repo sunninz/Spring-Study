@@ -1,9 +1,8 @@
 package com.example.SpringStudy.domain.mapping;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import com.example.SpringStudy.domain.Member;
+import com.example.SpringStudy.domain.Terms;
+import jakarta.persistence.*;
 import lombok.*;
 
 @Entity
@@ -15,5 +14,13 @@ public class MemberAgree {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
+    @ManyToOne
+    @JoinColumn(name = "member_id")
+    private Member member;
+
+    @ManyToOne
+    @JoinColumn(name = "member_id")
+    private Terms terms;
 
 }

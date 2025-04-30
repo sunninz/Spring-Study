@@ -1,5 +1,7 @@
 package com.example.SpringStudy.domain.mapping;
 
+import com.example.SpringStudy.domain.Member;
+import com.example.SpringStudy.domain.Mission;
 import com.example.SpringStudy.domain.enums.MissionStatus;
 import jakarta.persistence.*;
 import lombok.*;
@@ -26,5 +28,13 @@ public class MemberMission {
     private Integer verificationCode;
 
     private LocalDate verifiedAt;
+
+    @ManyToOne
+    @JoinColumn(name = "member_id")
+    private Member member;
+
+    @ManyToOne
+    @JoinColumn(name = "mission_id")
+    private Mission mission;
 
 }

@@ -1,10 +1,7 @@
 package com.example.SpringStudy.domain;
 
 import com.example.SpringStudy.domain.common.BaseEntity;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import lombok.*;
 
 @Entity
@@ -25,5 +22,9 @@ public class Store extends BaseEntity {
     private Float score;
 
     private String category;
+
+    @ManyToOne
+    @JoinColumn(name = "region_id")
+    private Region region;
 
 }

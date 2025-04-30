@@ -1,10 +1,7 @@
 package com.example.SpringStudy.domain;
 
 import com.example.SpringStudy.domain.common.BaseEntity;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import lombok.*;
 
 @Entity
@@ -25,4 +22,12 @@ public class Review extends BaseEntity {
     private String body;
 
     private String comment;
+
+    @ManyToOne
+    @JoinColumn(name = "member_id")
+    private Member member;
+
+    @ManyToOne
+    @JoinColumn(name = "store_id")
+    private Store store;
 }

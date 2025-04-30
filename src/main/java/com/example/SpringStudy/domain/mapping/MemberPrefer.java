@@ -1,9 +1,8 @@
 package com.example.SpringStudy.domain.mapping;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import com.example.SpringStudy.domain.FoodCategory;
+import com.example.SpringStudy.domain.Member;
+import jakarta.persistence.*;
 import lombok.*;
 
 @Entity
@@ -17,4 +16,11 @@ public class MemberPrefer {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @ManyToOne
+    @JoinColumn(name = "member_id")
+    private Member member;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "category_id")
+    private FoodCategory foodCategory;
 }
