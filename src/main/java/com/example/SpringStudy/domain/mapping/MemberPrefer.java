@@ -2,6 +2,7 @@ package com.example.SpringStudy.domain.mapping;
 
 import com.example.SpringStudy.domain.FoodCategory;
 import com.example.SpringStudy.domain.Member;
+import com.example.SpringStudy.domain.common.BaseEntity;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -11,7 +12,7 @@ import lombok.*;
 @Builder
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @AllArgsConstructor
-public class MemberPrefer {
+public class MemberPrefer extends BaseEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

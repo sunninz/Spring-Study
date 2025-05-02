@@ -2,6 +2,7 @@ package com.example.SpringStudy.domain.mapping;
 
 import com.example.SpringStudy.domain.Member;
 import com.example.SpringStudy.domain.Mission;
+import com.example.SpringStudy.domain.common.BaseEntity;
 import com.example.SpringStudy.domain.enums.MissionStatus;
 import jakarta.persistence.*;
 import lombok.*;
@@ -14,7 +15,7 @@ import java.time.LocalDateTime;
 @Builder
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @AllArgsConstructor
-public class MemberMission {
+public class MemberMission extends BaseEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
