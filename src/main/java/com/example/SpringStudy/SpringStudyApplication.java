@@ -1,5 +1,8 @@
 package com.example.SpringStudy;
 
+import com.example.SpringStudy.domain.enums.MissionStatus;
+import com.example.SpringStudy.service.MemberMissionService.MemberMissionQueryService;
+import com.example.SpringStudy.service.MemberMissionService.MemberMissionQueryServiceImpl;
 import com.example.SpringStudy.service.MemberService.MemberService;
 import com.example.SpringStudy.service.MissionService.MissionQueryService;
 import com.example.SpringStudy.service.StoreService.StoreQueryService;
@@ -77,6 +80,16 @@ public class SpringStudyApplication {
 
 			System.out.println("----- My Missions -----");
 			home.getMissions().forEach(System.out::println);
+
+			/**
+			 * mission no.1 미션 내역 조회
+			 */
+			MemberMissionQueryService memberMissionQueryService = context.getBean(MemberMissionQueryServiceImpl.class);
+
+			System.out.println("Executing getMissionHistory with parameter:");
+			System.out.println("targetMemberId = " + targetMemberId);
+			memberMissionQueryService.getMissionHistory(targetMemberId, MissionStatus.COMPLETE)
+					.forEach(System.out::println);
 
 
 		};
