@@ -1,6 +1,6 @@
 package com.example.SpringStudy.service.MemberService;
 
-import com.example.SpringStudy.web.dto.MemberInfoDto;
+import com.example.SpringStudy.web.dto.response.MemberInfoResponseDto;
 
 public interface MemberService {
 
@@ -8,5 +8,5 @@ public interface MemberService {
     void deleteMember(Long memberId);
 
     // 회원 정보 조회
-    MemberInfoDto getMemberInfo(Long memberId);
+    MemberInfoResponseDto getMemberInfo(Long memberId);
 }

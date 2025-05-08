@@ -3,12 +3,9 @@ package com.example.SpringStudy.service.MissionService;
 import com.example.SpringStudy.domain.Member;
 import com.example.SpringStudy.repository.MemberRepository.MemberRepository;
 import com.example.SpringStudy.repository.MissionRepository.MissionRepository;
-import com.example.SpringStudy.web.dto.HomeReponseDto;
-import com.example.SpringStudy.web.dto.MyMissionResponseDto;
+import com.example.SpringStudy.web.dto.response.HomeReponseDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
-
-import java.util.List;
 
 @Service
 @RequiredArgsConstructor

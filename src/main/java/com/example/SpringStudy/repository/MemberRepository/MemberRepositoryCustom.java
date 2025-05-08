@@ -1,8 +1,8 @@
 package com.example.SpringStudy.repository.MemberRepository;
 
-import com.example.SpringStudy.web.dto.MemberInfoDto;
+import com.example.SpringStudy.web.dto.response.MemberInfoResponseDto;
 
 public interface MemberRepositoryCustom {
 
-    MemberInfoDto findMemberInfoById(Long memberId);
+    MemberInfoResponseDto findMemberInfoById(Long memberId);
 }

@@ -4,7 +4,7 @@ import com.example.SpringStudy.repository.MemberAgreeRepository.MemberAgreeRepos
 import com.example.SpringStudy.repository.MemberMissionRepository.MemberMissionRepository;
 import com.example.SpringStudy.repository.MemberPreferRepository.MemberPreferRepository;
 import com.example.SpringStudy.repository.MemberRepository.MemberRepository;
-import com.example.SpringStudy.web.dto.MemberInfoDto;
+import com.example.SpringStudy.web.dto.response.MemberInfoResponseDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -29,7 +29,7 @@ public class MemberServiceImpl implements MemberService {
     }
 
     @Override
-    public MemberInfoDto getMemberInfo(Long memberId) {
+    public MemberInfoResponseDto getMemberInfo(Long memberId) {
         return memberRepository.findMemberInfoById(memberId);
     }
 }

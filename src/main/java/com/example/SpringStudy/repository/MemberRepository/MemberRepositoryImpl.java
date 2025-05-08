@@ -1,8 +1,7 @@
 package com.example.SpringStudy.repository.MemberRepository;
 
-import com.example.SpringStudy.domain.Member;
 import com.example.SpringStudy.domain.QMember;
-import com.example.SpringStudy.web.dto.MemberInfoDto;
+import com.example.SpringStudy.web.dto.response.MemberInfoResponseDto;
 import com.querydsl.core.types.Projections;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import lombok.RequiredArgsConstructor;
@@ -16,10 +15,10 @@ public class MemberRepositoryImpl implements MemberRepositoryCustom{
     private final QMember member = QMember.member;
 
     @Override
-    public MemberInfoDto findMemberInfoById(Long memberId) {
+    public MemberInfoResponseDto findMemberInfoById(Long memberId) {
         return jpaQueryFactory
                 .select(Projections.constructor(
-                        MemberInfoDto.class,
+                        MemberInfoResponseDto.class,
                         member.name,
                         member.email,
                         member.phoneNumber,

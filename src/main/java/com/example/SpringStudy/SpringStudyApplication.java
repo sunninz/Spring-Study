@@ -3,9 +3,8 @@ package com.example.SpringStudy;
 import com.example.SpringStudy.service.MemberService.MemberService;
 import com.example.SpringStudy.service.MissionService.MissionQueryService;
 import com.example.SpringStudy.service.StoreService.StoreQueryService;
-import com.example.SpringStudy.web.dto.HomeReponseDto;
-import com.example.SpringStudy.web.dto.MemberInfoDto;
-import com.example.SpringStudy.web.dto.MyMissionResponseDto;
+import com.example.SpringStudy.web.dto.response.MemberInfoResponseDto;
+import com.example.SpringStudy.web.dto.response.HomeReponseDto;
 import io.github.cdimascio.dotenv.Dotenv;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
@@ -13,8 +12,6 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.Bean;
 import org.springframework.data.jpa.repository.config.EnableJpaAuditing;
-
-import java.util.List;
 
 @SpringBootApplication
 @EnableJpaAuditing
@@ -62,7 +59,7 @@ public class SpringStudyApplication {
 			System.out.println("Executing getMemberInfo with parameter:");
 			System.out.println("memberId = " + memberId);
 
-			MemberInfoDto dto = memberService.getMemberInfo(memberId);
+			MemberInfoResponseDto dto = memberService.getMemberInfo(memberId);
 			System.out.println(dto != null ? dto : "No member found.");
 
 			/**

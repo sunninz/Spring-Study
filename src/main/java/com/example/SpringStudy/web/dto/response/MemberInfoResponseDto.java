@@ -1,11 +1,11 @@
-package com.example.SpringStudy.web.dto;
+package com.example.SpringStudy.web.dto.response;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 
 @Getter
 @AllArgsConstructor
-public class MemberInfoDto {
+public class MemberInfoResponseDto {
     private String name;
     private String email;
     private Integer phoneNumber;

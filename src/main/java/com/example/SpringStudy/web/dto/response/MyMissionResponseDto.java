@@ -1,4 +1,4 @@
-package com.example.SpringStudy.web.dto;
+package com.example.SpringStudy.web.dto.response;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
