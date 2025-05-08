@@ -5,6 +5,7 @@ import com.example.SpringStudy.domain.mapping.MemberMission;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -21,6 +22,9 @@ public class Mission extends BaseEntity {
 
     @Column(nullable = false)
     private String missionDescription;
+
+    @Column(nullable = false)
+    private LocalDate deadline;
 
     @Column(nullable = false)
     private Integer reward;
