@@ -3,6 +3,7 @@ package com.example.SpringStudy;
 import com.example.SpringStudy.service.MemberService.MemberService;
 import com.example.SpringStudy.service.MissionService.MissionQueryService;
 import com.example.SpringStudy.service.StoreService.StoreQueryService;
+import com.example.SpringStudy.web.dto.HomeReponseDto;
 import com.example.SpringStudy.web.dto.MemberInfoDto;
 import com.example.SpringStudy.web.dto.MyMissionResponseDto;
 import io.github.cdimascio.dotenv.Dotenv;
@@ -51,7 +52,7 @@ public class SpringStudyApplication {
 					.forEach(System.out::println);
 
 			/**
-			 * meber info 조회
+			 * mission no.4 meber info 조회
 			 */
 			// member 조회
 			MemberService memberService = context.getBean(MemberService.class);
@@ -65,13 +66,22 @@ public class SpringStudyApplication {
 			System.out.println(dto != null ? dto : "No member found.");
 
 			/**
-			 * 홈 - my mission 조회
+			 * mission no.3 홈 내역 조회
 			 */
 			MissionQueryService missionQueryService = context.getBean(MissionQueryService.class);
-			String regionName = "서울";
+			Long targetMemberId = 4L;
 
-			missionQueryService.getMyMissionByReagionName(regionName)
-					.forEach(System.out::println);
+			HomeReponseDto home = missionQueryService.getHomeMissionByMemberId(targetMemberId);
+
+			System.out.println("===== HOME INFO =====");
+			System.out.println("Region: " + home.getRegionName());
+			System.out.println("Point: " + home.getPoint());
+			System.out.println("Completed Missions: " + home.getCompletedMissionCount());
+
+			System.out.println("----- My Missions -----");
+			home.getMissions().forEach(System.out::println);
+
+
 		};
 	}
 }
