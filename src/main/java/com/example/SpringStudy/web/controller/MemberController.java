@@ -1,6 +1,6 @@
 package com.example.SpringStudy.web.controller;
 
-import com.example.SpringStudy.service.MemberService;
+import com.example.SpringStudy.service.MemberService.MemberService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;

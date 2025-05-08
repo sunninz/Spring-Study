@@ -1,16 +1,16 @@
-package com.example.SpringStudy.service;
+package com.example.SpringStudy.service.MemberService;
 
-import com.example.SpringStudy.repository.MemberAgreeRepository;
-import com.example.SpringStudy.repository.MemberMissionRepository;
-import com.example.SpringStudy.repository.MemberPreferRepository;
-import com.example.SpringStudy.repository.MemberRepository;
+import com.example.SpringStudy.repository.MemberAgreeRepository.MemberAgreeRepository;
+import com.example.SpringStudy.repository.MemberMissionRepository.MemberMissionRepository;
+import com.example.SpringStudy.repository.MemberPreferRepository.MemberPreferRepository;
+import com.example.SpringStudy.repository.MemberRepository.MemberRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 @Service
 @RequiredArgsConstructor
-public class MemberServiceImpl implements MemberService{
+public class MemberServiceImpl implements MemberService {
 
     private final MemberRepository memberRepository;
     private final MemberPreferRepository memberPreferRepository;

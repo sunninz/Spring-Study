@@ -1,4 +1,4 @@
-package com.example.SpringStudy.service;
+package com.example.SpringStudy.service.MemberService;
 
 public interface MemberService {
 

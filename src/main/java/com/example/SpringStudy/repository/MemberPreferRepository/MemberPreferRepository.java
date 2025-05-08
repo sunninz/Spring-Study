@@ -1,4 +1,4 @@
-package com.example.SpringStudy.repository;
+package com.example.SpringStudy.repository.MemberPreferRepository;
 
 import com.example.SpringStudy.domain.mapping.MemberPrefer;
 import org.springframework.data.jpa.repository.JpaRepository;
