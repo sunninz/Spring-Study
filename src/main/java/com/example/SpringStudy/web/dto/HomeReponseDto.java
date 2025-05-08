@@ -10,7 +10,7 @@ import java.util.List;
 public class HomeReponseDto {
     private String regionName;
     private Integer point;
-    private Integer completedMissionCount;
+    private Long completedMissionCount;
     private List<MyMissionResponseDto> missions;
 
     @Override

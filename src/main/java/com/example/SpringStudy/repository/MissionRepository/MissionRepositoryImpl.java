@@ -11,10 +11,8 @@ import com.example.SpringStudy.web.dto.MyMissionResponseDto;
 import com.querydsl.core.types.Projections;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import lombok.RequiredArgsConstructor;
-import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
-import java.time.LocalDate;
 import java.util.List;
 
 @Repository
@@ -33,17 +31,24 @@ public class MissionRepositoryImpl implements MissionRepositoryCustom{
         String regionName = member.getSpecAddress();
         Integer point = member.getPoint();
 
-        // 완료한 미션 Id 조회
-        List<Long> challengedMissionIds = jpaQueryFactory
+        // 1. 완료한 미션 ID만 필터링
+        Long completed = jpaQueryFactory
+                .select(memberMission.count())
+                .from(memberMission)
+                .where(
+                        memberMission.member.id.eq(member.getId()),
+                        memberMission.status.eq(MissionStatus.COMPLETE)
+                )
+                .fetchOne();
+
+        // 2. 진행중/진행완료된 미션id
+        List<Long> participatedMissionIds = jpaQueryFactory
                 .select(memberMission.mission.id)
                 .from(memberMission)
                 .where(memberMission.member.id.eq(member.getId()))
                 .fetch();
 
-        // 완료한 미션 수
-        int completed = challengedMissionIds.size();
-
-        // my mission(완료하지 않은 미션 id) 조회
+        // 3. My Mission
         List<MyMissionResponseDto> missions = jpaQueryFactory
                 .select(Projections.constructor(
                         MyMissionResponseDto.class,
@@ -57,10 +62,11 @@ public class MissionRepositoryImpl implements MissionRepositoryCustom{
                 .join(mission.store, store)
                 .join(store.region, region)
                 .where(
-                region.name.eq(regionName),
-                mission.id.notIn(challengedMissionIds.isEmpty() ? List.of(-1L) : challengedMissionIds)
+                        region.name.eq(regionName),
+                        mission.id.notIn(participatedMissionIds.isEmpty() ? List.of(-1L) : participatedMissionIds)
                 )
                 .fetch();
+
 
         return new HomeReponseDto(
                 regionName,
