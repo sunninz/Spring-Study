@@ -4,6 +4,7 @@ import com.example.SpringStudy.repository.MemberAgreeRepository.MemberAgreeRepos
 import com.example.SpringStudy.repository.MemberMissionRepository.MemberMissionRepository;
 import com.example.SpringStudy.repository.MemberPreferRepository.MemberPreferRepository;
 import com.example.SpringStudy.repository.MemberRepository.MemberRepository;
+import com.example.SpringStudy.web.dto.MemberInfoDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -25,5 +26,10 @@ public class MemberServiceImpl implements MemberService {
         memberMissionRepository.deleteByMemberId(memberId);
 
         memberRepository.deleteById(memberId);
+    }
+
+    @Override
+    public MemberInfoDto getMemberInfo(Long memberId) {
+        return memberRepository.findMemberInfoById(memberId);
     }
 }
