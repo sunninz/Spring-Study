@@ -20,10 +20,11 @@ public class ReviewServiceImpl implements ReviewService{
     private final ReviewRepository reviewRepository;
     private final ReviewQueryRepository reviewQueryRepository;
 
+    @Transactional(readOnly = true)
     @Override
     public List<StoreReviewResponseDto> getReviewsByStoreId(Long storeId) {
 
-        return reviewQueryRepository.findAllByStoreId(storeId)
+        return reviewRepository.findAllByStoreId(storeId)
                 .stream()
                 .map(ReviewConverter::toReviewResponseDto)
                 .collect(Collectors.toList());

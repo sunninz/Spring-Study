@@ -8,6 +8,7 @@ import com.example.SpringStudy.domain.mapping.MemberMission;
 import com.example.SpringStudy.domain.mapping.MemberPrefer;
 import jakarta.persistence.*;
 import lombok.*;
+import org.hibernate.annotations.BatchSize;
 
 import java.time.LocalDate;
 import java.util.ArrayList;

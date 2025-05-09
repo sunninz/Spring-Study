@@ -21,9 +21,12 @@ public class ReviewController {
     // storeId로 리뷰 조회
     @GetMapping("/{storeId}")
     public List<StoreReviewResponseDto> getStoreReviews(@PathVariable("storeId") Long storeId){
+        long start = System.currentTimeMillis();
 
         List<StoreReviewResponseDto> result = reviewService.getReviewsByStoreId(storeId);
 
+        long end = System.currentTimeMillis();
+        System.out.println("[⏱️ 실행 시간] getReviewsByStoreId: " + (end - start) + "ms");
 
         return reviewService.getReviewsByStoreId(storeId);
     }
