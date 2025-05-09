@@ -22,11 +22,11 @@ public class Review extends BaseEntity {
 
     private String comment;
 
-    @ManyToOne
-    @JoinColumn(name = "member_id")
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "member_id", nullable = false)
     private Member member;
 
-    @ManyToOne
-    @JoinColumn(name = "store_id")
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "store_id", nullable = false)
     private Store store;
 }
