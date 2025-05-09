@@ -1,6 +1,7 @@
 package com.example.SpringStudy.service.ReviewService;
 
 import com.example.SpringStudy.domain.Review;
+import com.example.SpringStudy.repository.ReviewRepository.ReviewQueryRepository;
 import com.example.SpringStudy.repository.ReviewRepository.ReviewRepository;
 import com.example.SpringStudy.web.dto.response.StoreReviewResponseDto;
 import com.example.SpringStudy.converter.ReviewConverter.ReviewConverter;
@@ -17,12 +18,12 @@ import java.util.stream.Collectors;
 public class ReviewServiceImpl implements ReviewService{
 
     private final ReviewRepository reviewRepository;
+    private final ReviewQueryRepository reviewQueryRepository;
 
-    @Transactional(readOnly = true)
     @Override
     public List<StoreReviewResponseDto> getReviewsByStoreId(Long storeId) {
 
-        return reviewRepository.findAllByStoreId(storeId)
+        return reviewQueryRepository.findAllByStoreId(storeId)
                 .stream()
                 .map(ReviewConverter::toReviewResponseDto)
                 .collect(Collectors.toList());

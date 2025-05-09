@@ -21,6 +21,10 @@ public class ReviewController {
     // storeId로 리뷰 조회
     @GetMapping("/{storeId}")
     public List<StoreReviewResponseDto> getStoreReviews(@PathVariable("storeId") Long storeId){
+
+        List<StoreReviewResponseDto> result = reviewService.getReviewsByStoreId(storeId);
+
+
         return reviewService.getReviewsByStoreId(storeId);
     }
 
