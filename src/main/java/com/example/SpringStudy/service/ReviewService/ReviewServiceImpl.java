@@ -1,16 +1,14 @@
 package com.example.SpringStudy.service.ReviewService;
 
-import com.example.SpringStudy.domain.Review;
 import com.example.SpringStudy.repository.ReviewRepository.ReviewQueryRepository;
 import com.example.SpringStudy.repository.ReviewRepository.ReviewRepository;
 import com.example.SpringStudy.web.dto.response.StoreReviewResponseDto;
-import com.example.SpringStudy.converter.ReviewConverter.ReviewConverter;
+import com.example.SpringStudy.converter.ReviewConverter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
-import java.util.function.Function;
 import java.util.stream.Collectors;
 
 @Service

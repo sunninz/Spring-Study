@@ -12,10 +12,12 @@ import io.github.cdimascio.dotenv.Dotenv;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.cloud.openfeign.EnableFeignClients;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.Bean;
 import org.springframework.data.jpa.repository.config.EnableJpaAuditing;
 
+@EnableFeignClients
 @SpringBootApplication
 @EnableJpaAuditing
 public class SpringStudyApplication {
@@ -27,6 +29,8 @@ public class SpringStudyApplication {
 		System.setProperty("DB_USERNAME", dotenv.get("DB_USERNAME"));
 		System.setProperty("DB_PASSWORD", dotenv.get("DB_PASSWORD"));
 		System.setProperty("DB_NAME", dotenv.get("DB_NAME"));
+		System.setProperty("discord.name", dotenv.get("DISCORD_NAME"));
+		System.setProperty("discord.webhook-url", dotenv.get("DISCORD_WEBHOOK_URL"));
 
 		SpringApplication.run(SpringStudyApplication.class, args);
 	}

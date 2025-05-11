@@ -1,4 +1,4 @@
-package com.example.SpringStudy.converter.ReviewConverter;
+package com.example.SpringStudy.converter;
 
 import com.example.SpringStudy.domain.Review;
 import com.example.SpringStudy.web.dto.response.StoreReviewResponseDto;
