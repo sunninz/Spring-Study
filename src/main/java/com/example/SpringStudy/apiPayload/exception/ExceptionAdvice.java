@@ -3,8 +3,11 @@ package com.example.SpringStudy.apiPayload.exception;
 import com.example.SpringStudy.apiPayload.ApiResponse;
 import com.example.SpringStudy.apiPayload.code.ErrorResonDTO;
 import com.example.SpringStudy.apiPayload.code.status.ErrorStatus;
+import com.example.SpringStudy.infra.feign.DiscordFeignClient;
+import com.example.SpringStudy.infra.feign.dto.DiscordMessage;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.validation.ConstraintViolationException;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -18,14 +21,20 @@ import org.springframework.web.context.request.ServletWebRequest;
 import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
 
+import java.io.PrintWriter;
+import java.io.StringWriter;
+import java.time.LocalDateTime;
 import java.util.LinkedHashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
 @Slf4j
 @RestControllerAdvice(annotations = {RestController.class})
+@RequiredArgsConstructor
 public class ExceptionAdvice extends ResponseEntityExceptionHandler {
 
+    private final DiscordFeignClient discordFeignClient;
     @ExceptionHandler
     public ResponseEntity<Object> validation(ConstraintViolationException e, WebRequest request){
 
@@ -54,6 +63,7 @@ public class ExceptionAdvice extends ResponseEntityExceptionHandler {
     @ExceptionHandler
     public ResponseEntity<Object> exception(Exception e, WebRequest request) {
         e.printStackTrace();
+        sendDiscordAlarm(e, request);
 
         return handleExceptionInternalFalse(e, ErrorStatus._INTERNAL_SERVER_ERROR, HttpHeaders.EMPTY, ErrorStatus._INTERNAL_SERVER_ERROR.getHttpStatus(),request, e.getMessage());
     }
@@ -116,5 +126,45 @@ public class ExceptionAdvice extends ResponseEntityExceptionHandler {
                 request
         );
     }
+
+    private void sendDiscordAlarm(Exception e, WebRequest request){
+        discordFeignClient.sendMessage(createMessage(e, request));
+    }
+
+    private DiscordMessage createMessage(Exception e, WebRequest request) {
+        return DiscordMessage.builder()
+                .content("🚨 에러 발생 🚨")
+                .embeds(List.of(
+                        DiscordMessage.Embed.builder()
+                                .title("에러 정보")
+                                .description(
+                                        "### 🕖 발생 시간\n" +
+                                        LocalDateTime.now() + "\n" +
+                                        "### 🔗 요청 URL\n" +
+                                        getRequestUrl(request) + "\n" +
+                                        "### 📄 Stack Trace\n" +
+                                        "```\n" +
+                                        getStackTrace(e).substring(0, 1000) +
+                                        "\n```"
+                                )
+                                .build()
+                ))
+                .build();
+    }
+
+    private String getRequestUrl(WebRequest request) {
+        HttpServletRequest req = ((ServletWebRequest) request).getRequest();
+        String url = req.getRequestURL().toString();
+        String query = req.getQueryString();
+
+        return (query != null) ? url + "?" + query : url;
+    }
+
+    private String getStackTrace(Exception e) {
+        StringWriter stringWriter = new StringWriter();
+        e.printStackTrace(new PrintWriter(stringWriter));
+        return stringWriter.toString();
+    }
+
 
 }
