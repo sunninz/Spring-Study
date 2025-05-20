@@ -44,7 +44,8 @@ public class Member extends BaseEntity {
 
     private LocalDate birth;
 
-    private Integer phoneNumber;
+    @Column(nullable = false, length = 20)
+    private String phoneNumber;
 
     @Enumerated(EnumType.STRING)
     @Column(columnDefinition = "VARCHAR(10)")
