@@ -48,6 +48,8 @@ dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter-validation'
 	// webhook
 	implementation 'org.springframework.cloud:spring-cloud-starter-openfeign'
+	//swagger
+	implementation 'org.springdoc:springdoc-openapi-starter-webmvc-ui:2.3.0'
 }
 sourceSets {
 	main {
