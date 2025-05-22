@@ -1,7 +1,9 @@
 package com.example.SpringStudy.converter;
 
 import com.example.SpringStudy.web.dto.response.TempResponseDTO;
+import org.springframework.stereotype.Component;
 
+@Component
 public class TempConverter {
     public static TempResponseDTO.TempTestDTO toTempTestDTO(){
         return TempResponseDTO.TempTestDTO.builder()

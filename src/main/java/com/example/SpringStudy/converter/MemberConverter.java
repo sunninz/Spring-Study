@@ -5,12 +5,14 @@ import com.example.SpringStudy.domain.enums.Gender;
 import com.example.SpringStudy.web.dto.request.MemberRequestDTO;
 import com.example.SpringStudy.web.dto.response.MemberResponseDTO;
 import org.springframework.cglib.core.Local;
+import org.springframework.stereotype.Component;
 
 import javax.swing.*;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 
+@Component
 public class MemberConverter {
 
     public static MemberResponseDTO.JoinResultDTO toJoinResultDTO(Member member){
