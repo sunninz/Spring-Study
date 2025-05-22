@@ -1,20 +1,9 @@
 package com.example.SpringStudy;
 
-import com.example.SpringStudy.domain.enums.MissionStatus;
-import com.example.SpringStudy.service.MemberMissionService.MemberMissionQueryService;
-import com.example.SpringStudy.service.MemberMissionService.MemberMissionQueryServiceImpl;
-import com.example.SpringStudy.service.MemberService.MemberService;
-import com.example.SpringStudy.service.MissionService.MissionQueryService;
-import com.example.SpringStudy.service.StoreService.StoreQueryService;
-import com.example.SpringStudy.web.dto.response.MemberInfoResponseDto;
-import com.example.SpringStudy.web.dto.response.HomeReponseDto;
 import io.github.cdimascio.dotenv.Dotenv;
-import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.cloud.openfeign.EnableFeignClients;
-import org.springframework.context.ApplicationContext;
-import org.springframework.context.annotation.Bean;
 import org.springframework.data.jpa.repository.config.EnableJpaAuditing;
 
 @EnableFeignClients

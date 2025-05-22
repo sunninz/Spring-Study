@@ -1,24 +1,35 @@
 package com.example.SpringStudy.web.controller;
 
-import com.example.SpringStudy.service.MemberService.MemberService;
+import com.example.SpringStudy.apiPayload.ApiResponse;
+import com.example.SpringStudy.converter.MemberConverter;
+import com.example.SpringStudy.domain.Member;
+import com.example.SpringStudy.service.MemberService.MemberCommandService;
+import com.example.SpringStudy.web.dto.request.MemberRequestDTO;
+import com.example.SpringStudy.web.dto.response.MemberResponseDTO;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
 @Controller
 @RequiredArgsConstructor
 @RequestMapping("/api/members")
 public class MemberController {
 
-    private final MemberService memberService;
+    private final MemberCommandService memberCommandService;
 
     @DeleteMapping("{memberId}")
     public ResponseEntity<Void> deleteMember(@PathVariable Long memberId){
-        memberService.deleteMember(memberId);
+        memberCommandService.deleteMember(memberId);
         return ResponseEntity.noContent().build();
+    }
+
+    @PostMapping("/")
+    public ApiResponse<MemberResponseDTO.JoinResultDTO> join(@RequestBody @Valid MemberRequestDTO.JoinDto request){
+        Member member = memberCommandService.joinMember(request);
+
+        return ApiResponse.onSuccess(MemberConverter.toJoinResultDTO(member));
     }
 
 }
