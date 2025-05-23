@@ -34,9 +34,14 @@ public class MissionCommandServiceImpl implements MissionCommandService{
     public Mission createMission(MissionRequestDTO.CreateMissionDTO request) {
 
         Store store = storeRepository.findById(request.getStoreId())
-                .orElseThrow(() -> new MissionHandler(STORE_NOT_FOUND));
+                .orElseThrow();
 
         Mission mission = missionConverter.toMission(request, store);
         return missionRepository.save(mission);
+    }
+
+    @Override
+    public boolean storeExist(Long id) {
+        return storeRepository.existsById(id);
     }
 }

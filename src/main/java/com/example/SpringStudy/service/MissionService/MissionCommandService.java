@@ -7,4 +7,6 @@ public interface MissionCommandService {
     // 가기에 미션 추가
     Mission createMission(MissionRequestDTO.CreateMissionDTO request);
 
+    // 가게 확인
+    boolean storeExist(Long id);
 }
