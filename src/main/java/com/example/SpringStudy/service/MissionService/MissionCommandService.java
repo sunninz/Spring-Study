@@ -9,4 +9,7 @@ public interface MissionCommandService {
 
     // 가게 확인
     boolean storeExist(Long id);
+
+    // 미션 검증
+    boolean missionExist(Long id);
 }

@@ -44,4 +44,9 @@ public class MissionCommandServiceImpl implements MissionCommandService{
     public boolean storeExist(Long id) {
         return storeRepository.existsById(id);
     }
+
+    @Override
+    public boolean missionExist(Long id) {
+        return missionRepository.existsById(id);
+    }
 }
