@@ -2,11 +2,13 @@ package com.example.SpringStudy.web.dto.request;
 
 import com.example.SpringStudy.validation.annotation.ExistMember;
 import com.example.SpringStudy.validation.annotation.ExistStore;
+import com.example.SpringStudy.validation.annotation.ReviewAble;
 import jakarta.validation.constraints.*;
 import lombok.Getter;
 
 public class ReviewRequestDTO {
     @Getter
+    @ReviewAble
     public static class CreateDTO {
         @NotNull
         private String body;

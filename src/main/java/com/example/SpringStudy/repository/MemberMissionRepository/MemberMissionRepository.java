@@ -19,4 +19,15 @@ public interface MemberMissionRepository extends JpaRepository<MemberMission, Lo
     // 중복 도전 여부 확인
     boolean existsByMemberIdAndMissionIdAndStatusIn(Long memberId, Long missionId, List<MissionStatus> statusList);
 
+    // 완료된 미션 여부 확인
+    @Query("""
+    SELECT COUNT(m) > 0
+    FROM MemberMission m
+    JOIN m.mission mi
+    WHERE m.member.id = :memberId
+      AND mi.store.id = :storeId
+      AND m.status = 'COMPLETE'
+    """)
+    boolean existsCompletedMissionByMemberAndStore(@Param("memberId") Long memberId, @Param("storeId") Long storeId);
+
 }
