@@ -9,6 +9,7 @@ import com.example.SpringStudy.repository.MemberMissionRepository.MemberMissionR
 import com.example.SpringStudy.repository.MemberRepository.MemberRepository;
 import com.example.SpringStudy.repository.MissionRepository.MissionRepository;
 import com.example.SpringStudy.web.dto.request.MemberMissionRequestDTO;
+import com.example.SpringStudy.web.dto.request.ReviewRequestDTO;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -47,5 +48,12 @@ public class MemberMissionCommandServiceImpl implements MemberMissionCommandServ
                 missionId,
                 List.of(MissionStatus.CHALLENGING, MissionStatus.COMPLETE)
         );
+    }
+
+    @Override
+    public boolean completedMission(ReviewRequestDTO.CreateDTO request) {
+        Long memberId = request.getMemberId();
+        Long storeId = request.getStoreId();
+        return memberMissionRepository.existsCompletedMissionByMemberAndStore(memberId, storeId);
     }
 }
