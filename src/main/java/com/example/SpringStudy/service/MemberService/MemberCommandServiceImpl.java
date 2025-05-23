@@ -64,4 +64,10 @@ public class MemberCommandServiceImpl implements MemberCommandService {
         memberPreferList.forEach(memberPrefer -> {memberPrefer.setMember(member);});
         return memberRepository.save(member);
     }
+
+    @Override
+    public boolean allExist(List<Long> values) {
+        return values.stream()
+                .allMatch(value -> foodCategoryRepository.existsById(value));
+    }
 }

@@ -2,6 +2,7 @@ package com.example.SpringStudy.validation.validator;
 
 import com.example.SpringStudy.apiPayload.code.status.ErrorStatus;
 import com.example.SpringStudy.repository.FoodCategoryRepository.FoodCategoryRepository;
+import com.example.SpringStudy.service.MemberService.MemberCommandService;
 import com.example.SpringStudy.validation.annotation.ExistCategories;
 import jakarta.validation.ConstraintValidator;
 import jakarta.validation.ConstraintValidatorContext;
@@ -14,7 +15,7 @@ import java.util.List;
 @RequiredArgsConstructor
 public class CategoriesExistValidator implements ConstraintValidator <ExistCategories, List<Long>> {
 
-    private final FoodCategoryRepository foodCategoryRepository;
+    private final MemberCommandService memberCommandService;
     @Override
     public void initialize(ExistCategories constraintAnnotation) {
         ConstraintValidator.super.initialize(constraintAnnotation);
@@ -23,8 +24,7 @@ public class CategoriesExistValidator implements ConstraintValidator <ExistCateg
     @Override
     public boolean isValid(List<Long> values, ConstraintValidatorContext context) {
 
-        boolean isValid = values.stream()
-                .allMatch(value -> foodCategoryRepository.existsById(value));
+        boolean isValid = memberCommandService.allExist(values);
 
         if (!isValid){
             context.disableDefaultConstraintViolation();
