@@ -23,7 +23,8 @@ public enum ErrorStatus implements BaseErrorCode {
     ARTICLE_NOT_FOUND(HttpStatus.NOT_FOUND,"ARTICLE4001","게시글이 없습니다."),
     FOOD_CATEGORY_NOT_FOUND(HttpStatus.BAD_REQUEST,"CATEGORY4001","해당 카테고리를 찾을 수 없습니다."),
     MISSON_NOT_FOUND(HttpStatus.BAD_REQUEST,"MISSON4001","해당 미션을 찾을 수 없습니다."),
-    STORE_NOT_FOUND(HttpStatus.BAD_REQUEST,"STORE4001","해당 가게를 찾을 수 없습니다.");
+    STORE_NOT_FOUND(HttpStatus.BAD_REQUEST,"STORE4001","해당 가게를 찾을 수 없습니다."),
+    ALREADY_CHALLENGED(HttpStatus.BAD_REQUEST,"MEMBERMISSION4001","이미 도전 중이거나 완료된 미션입니다.");
 
     private final HttpStatus httpStatus;
     private final String code;
