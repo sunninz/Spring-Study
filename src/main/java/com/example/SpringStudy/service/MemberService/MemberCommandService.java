@@ -19,4 +19,7 @@ public interface MemberCommandService {
 
     // 카테고리 검증
     boolean allExist(List<Long> values);
+
+    // 회원 검증
+    boolean memberExist(Long value);
 }
