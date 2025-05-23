@@ -9,6 +9,9 @@ import com.example.SpringStudy.domain.mapping.MemberPrefer;
 import jakarta.persistence.*;
 import lombok.*;
 import org.hibernate.annotations.BatchSize;
+import org.hibernate.annotations.ColumnDefault;
+import org.hibernate.annotations.DynamicInsert;
+import org.hibernate.annotations.DynamicUpdate;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -16,6 +19,8 @@ import java.util.List;
 
 @Entity
 @Getter
+@DynamicInsert
+@DynamicUpdate
 @Builder
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @AllArgsConstructor
@@ -25,10 +30,10 @@ public class Member extends BaseEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(nullable = false, length = 50)
+//    @Column(nullable = false, length = 50)
     private String email;
 
-    @Column(nullable = false, length = 40)
+//    @Column(nullable = false, length = 40)
     private String password;
 
     @Column(nullable = false, length = 20)
@@ -40,11 +45,13 @@ public class Member extends BaseEntity {
     @Column(nullable = false, length = 40)
     private String specAddress;
 
+    @ColumnDefault("0")
     private Integer point;
 
     private LocalDate birth;
 
-    private Integer phoneNumber;
+    @Column(nullable = false, length = 20)
+    private String phoneNumber;
 
     @Enumerated(EnumType.STRING)
     @Column(columnDefinition = "VARCHAR(10)")
