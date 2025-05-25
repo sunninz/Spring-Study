@@ -13,6 +13,8 @@ import com.example.SpringStudy.repository.StoreRepository.StoreRepository;
 import com.example.SpringStudy.web.dto.request.MemberRequestDTO;
 import com.example.SpringStudy.web.dto.request.MissionRequestDTO;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -48,5 +50,14 @@ public class MissionCommandServiceImpl implements MissionCommandService{
     @Override
     public boolean missionExist(Long id) {
         return missionRepository.existsById(id);
+    }
+
+    @Override
+    public Page<Mission> getMissionByStore(Long storeId, Integer page) {
+        Store store = storeRepository.findById(storeId)
+                .orElseThrow();
+
+        Page<Mission> missionPage = missionRepository.findAllByStore(store, PageRequest.of(page-1,10));
+        return missionPage;
     }
 }

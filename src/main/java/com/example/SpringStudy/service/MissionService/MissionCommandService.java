@@ -2,6 +2,7 @@ package com.example.SpringStudy.service.MissionService;
 
 import com.example.SpringStudy.domain.Mission;
 import com.example.SpringStudy.web.dto.request.MissionRequestDTO;
+import org.springframework.data.domain.Page;
 
 public interface MissionCommandService {
     // 가기에 미션 추가
@@ -12,4 +13,7 @@ public interface MissionCommandService {
 
     // 미션 검증
     boolean missionExist(Long id);
+
+    // 미션 목록 조회
+    Page<Mission> getMissionByStore(Long storeId, Integer page);
 }
