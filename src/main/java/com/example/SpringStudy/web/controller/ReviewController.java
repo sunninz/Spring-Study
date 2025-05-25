@@ -6,6 +6,7 @@ import com.example.SpringStudy.domain.Review;
 import com.example.SpringStudy.service.ReviewService.ReviewQueryService;
 import com.example.SpringStudy.service.ReviewService.ReviewService;
 import com.example.SpringStudy.service.StoreService.StoreQueryService;
+import com.example.SpringStudy.validation.annotation.ExistMember;
 import com.example.SpringStudy.validation.annotation.ExistStore;
 import com.example.SpringStudy.web.dto.request.ReviewRequestDTO;
 import com.example.SpringStudy.web.dto.response.ReviewResponseDTO;
@@ -55,5 +56,13 @@ public class ReviewController {
     public ApiResponse<ReviewResponseDTO.CreateResultDTO> createReview(@RequestBody @Valid ReviewRequestDTO.CreateDTO request) {
         Review review = reviewService.createReview(request);
         return ApiResponse.onSuccess(ReviewConverter.toCreateResultDTO(review));
+    }
+
+    // memberId와 page를 쿼리 파라미터로 받는 리뷰 조회
+    @GetMapping("")
+    @Operation(summary="특정 회원이 작성한 리뷰 목록 조회 API", description = "특정 회원이 작성한 리뷰 목록들을 조회하는 API, query string으로 page번호와 memberId 주세요")
+    public ApiResponse<ReviewResponseDTO.ReviewPreViewListDTO> getReviewsByUser(@RequestParam(name = "page") Integer page, @RequestParam(name="memberId") Long memberId){
+        Page<Review> reviewList =  reviewQueryService.getReviewsByUser(memberId,page);
+        return ApiResponse.onSuccess(reviewConverter.toReviewPreViewListDTO(reviewList));
     }
 }

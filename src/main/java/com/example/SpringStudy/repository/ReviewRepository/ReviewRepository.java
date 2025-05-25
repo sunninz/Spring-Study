@@ -1,5 +1,6 @@
 package com.example.SpringStudy.repository.ReviewRepository;
 
+import com.example.SpringStudy.domain.Member;
 import com.example.SpringStudy.domain.Review;
 import com.example.SpringStudy.domain.Store;
 import org.springframework.data.domain.Page;
@@ -22,4 +23,5 @@ public interface ReviewRepository extends JpaRepository<Review,Long> {
 //    List<Review> findAllByStoreId(@Param("storeId") Long storeId);
 
     Page<Review> findAllByStore(Store store, PageRequest pageRequest);
+    Page<Review> findAllByMember(Member member, PageRequest pageRequest);
 }
