@@ -10,9 +10,12 @@ import com.example.SpringStudy.web.dto.request.ReviewRequestDTO;
 import com.example.SpringStudy.web.dto.response.MemberMissionResponseDTO;
 import com.example.SpringStudy.web.dto.response.ReviewResponseDTO;
 import com.example.SpringStudy.web.dto.response.StoreReviewResponseDto;
+import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Component;
 
 import java.time.LocalDateTime;
+import java.util.List;
+import java.util.stream.Collectors;
 
 @Component
 public class ReviewConverter {
@@ -42,5 +45,30 @@ public class ReviewConverter {
                 .store(store)
                 .build();
 
+    }
+
+    // Review Entity를 ReviewPreViewDTO로 변환
+    public static ReviewResponseDTO.ReviewPreViewDTO toReviewPreviewDTO(Review review){
+        return ReviewResponseDTO.ReviewPreViewDTO.builder()
+                .ownerNickname(review.getMember().getName())
+                .score(review.getScore())
+                .createdAt(review.getCreatedAt().toLocalDate())
+                .body(review.getBody())
+                .build();
+    }
+
+    // Review 리스트 전체를 ReviewPreViewListDTO로 변환
+    public static ReviewResponseDTO.ReviewPreViewListDTO toReviewPreViewListDTO(Page<Review> reviewList){
+        List<ReviewResponseDTO.ReviewPreViewDTO> reviewPreViewDTOList = reviewList.stream()
+                .map(ReviewConverter::toReviewPreviewDTO).collect(Collectors.toList());
+
+        return ReviewResponseDTO.ReviewPreViewListDTO.builder()
+                .isLast(reviewList.isLast())
+                .isFirst(reviewList.isFirst())
+                .totalPage(reviewList.getTotalPages())
+                .totalElements(reviewList.getTotalElements())
+                .listSize(reviewPreViewDTOList.size())
+                .reviewList(reviewPreViewDTOList)
+                .build();
     }
 }
