@@ -8,6 +8,7 @@ import com.example.SpringStudy.service.ReviewService.ReviewService;
 import com.example.SpringStudy.service.StoreService.StoreQueryService;
 import com.example.SpringStudy.validation.annotation.ExistMember;
 import com.example.SpringStudy.validation.annotation.ExistStore;
+import com.example.SpringStudy.validation.annotation.ValidPage;
 import com.example.SpringStudy.web.dto.request.ReviewRequestDTO;
 import com.example.SpringStudy.web.dto.response.ReviewResponseDTO;
 import com.example.SpringStudy.web.dto.response.StoreReviewResponseDto;
@@ -20,6 +21,7 @@ import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -27,6 +29,7 @@ import java.util.List;
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/api/reviews")
+@Validated
 public class ReviewController {
 
     private final ReviewService reviewService;
@@ -61,7 +64,7 @@ public class ReviewController {
     // memberId와 page를 쿼리 파라미터로 받는 리뷰 조회
     @GetMapping("")
     @Operation(summary="특정 회원이 작성한 리뷰 목록 조회 API", description = "특정 회원이 작성한 리뷰 목록들을 조회하는 API, query string으로 page번호와 memberId 주세요")
-    public ApiResponse<ReviewResponseDTO.ReviewPreViewListDTO> getReviewsByUser(@RequestParam(name = "page") Integer page, @RequestParam(name="memberId") Long memberId){
+    public ApiResponse<ReviewResponseDTO.ReviewPreViewListDTO> getReviewsByUser(@ValidPage @RequestParam(name = "page") Integer page, @ExistMember @RequestParam(name="memberId") Long memberId){
         Page<Review> reviewList =  reviewQueryService.getReviewsByUser(memberId,page);
         return ApiResponse.onSuccess(reviewConverter.toReviewPreViewListDTO(reviewList));
     }

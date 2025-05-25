@@ -25,7 +25,8 @@ public enum ErrorStatus implements BaseErrorCode {
     MISSON_NOT_FOUND(HttpStatus.BAD_REQUEST,"MISSON4001","해당 미션을 찾을 수 없습니다."),
     STORE_NOT_FOUND(HttpStatus.BAD_REQUEST,"STORE4001","해당 가게를 찾을 수 없습니다."),
     ALREADY_CHALLENGED(HttpStatus.BAD_REQUEST,"MEMBERMISSION4001","이미 도전 중이거나 완료된 미션입니다."),
-    REVIEW_NOT_ALLOWED(HttpStatus.FORBIDDEN, "REVIEW4001", "해당 가게의 미션을 완료한 경우에만 리뷰를 작성할 수 있습니다.");
+    REVIEW_NOT_ALLOWED(HttpStatus.FORBIDDEN, "REVIEW4001", "해당 가게의 미션을 완료한 경우에만 리뷰를 작성할 수 있습니다."),
+    PAGE_NUMBER_INVALID(HttpStatus.BAD_REQUEST, "COMMON4001", "페이지 번호는 1 이상이어야 합니다.");
 
     private final HttpStatus httpStatus;
     private final String code;
