@@ -1,7 +1,10 @@
 package com.example.SpringStudy.repository.MemberMissionRepository;
 
+import com.example.SpringStudy.domain.Member;
 import com.example.SpringStudy.domain.enums.MissionStatus;
 import com.example.SpringStudy.domain.mapping.MemberMission;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
@@ -29,5 +32,7 @@ public interface MemberMissionRepository extends JpaRepository<MemberMission, Lo
       AND m.status = 'COMPLETE'
     """)
     boolean existsCompletedMissionByMemberAndStore(@Param("memberId") Long memberId, @Param("storeId") Long storeId);
+
+    Page<MemberMission> findAllByMemberAndStatus(Member member, MissionStatus status, PageRequest pageRequest);
 
 }

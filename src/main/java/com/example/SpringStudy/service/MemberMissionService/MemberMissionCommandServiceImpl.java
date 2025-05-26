@@ -11,6 +11,8 @@ import com.example.SpringStudy.repository.MissionRepository.MissionRepository;
 import com.example.SpringStudy.web.dto.request.MemberMissionRequestDTO;
 import com.example.SpringStudy.web.dto.request.ReviewRequestDTO;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -55,5 +57,15 @@ public class MemberMissionCommandServiceImpl implements MemberMissionCommandServ
         Long memberId = request.getMemberId();
         Long storeId = request.getStoreId();
         return memberMissionRepository.existsCompletedMissionByMemberAndStore(memberId, storeId);
+    }
+
+    // 내가 진행중인 미션 목록 조회
+    @Override
+    public Page<MemberMission> getMissionsByMemberAndStatus(Long memberId, Integer page, MissionStatus status) {
+        Member member = memberRepository.findById(memberId)
+                .orElseThrow();
+
+        Page<MemberMission> memberMissionPage = memberMissionRepository.findAllByMemberAndStatus(member, status,PageRequest.of(page-1,10));
+        return memberMissionPage;
     }
 }
