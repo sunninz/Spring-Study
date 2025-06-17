@@ -4,6 +4,7 @@ import com.example.SpringStudy.service.MemberService.MemberCommandService;
 import com.example.SpringStudy.web.dto.request.MemberRequestDTO;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -49,7 +50,8 @@ public class MemberViewController {
     }
 
     @GetMapping("/home")
-    public String home(){
+    public String home(Authentication authentication){
+        System.out.println("✅ 현재 로그인 유저: " + (authentication != null ? authentication.getName() : "없음"));
         return "home";
     }
 
