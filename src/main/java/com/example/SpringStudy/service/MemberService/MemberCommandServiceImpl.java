@@ -14,6 +14,7 @@ import com.example.SpringStudy.repository.MemberRepository.MemberRepository;
 import com.example.SpringStudy.web.dto.request.MemberRequestDTO;
 import com.example.SpringStudy.web.dto.response.MemberInfoResponseDto;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -33,6 +34,7 @@ public class MemberCommandServiceImpl implements MemberCommandService {
     private final FoodCategoryRepository foodCategoryRepository;
     private final MemberConverter memberConverter;
     private final MemberPreferConverter memberPreferConverter;
+    private final PasswordEncoder passwordEncoder;
 
 
     @Override
@@ -54,6 +56,9 @@ public class MemberCommandServiceImpl implements MemberCommandService {
     @Override
     public Member joinMember(MemberRequestDTO.JoinDto request) {
         Member member = memberConverter.toMember(request);
+
+        member.encodePassword(passwordEncoder.encode(request.getPassword()));
+
         List<FoodCategory> foodCategoryList = request.getPreferCategory().stream()
                 .map(category ->{
                     return foodCategoryRepository.findById(category).orElseThrow(()->new FoodCategoryHandler(FOOD_CATEGORY_NOT_FOUND));
@@ -62,6 +67,7 @@ public class MemberCommandServiceImpl implements MemberCommandService {
         List<MemberPrefer> memberPreferList = memberPreferConverter.toMemberPreferList(foodCategoryList);
 
         memberPreferList.forEach(memberPrefer -> {memberPrefer.setMember(member);});
+
         return memberRepository.save(member);
     }
 
