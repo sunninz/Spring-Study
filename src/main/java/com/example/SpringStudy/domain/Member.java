@@ -3,6 +3,7 @@ package com.example.SpringStudy.domain;
 import com.example.SpringStudy.domain.common.BaseEntity;
 import com.example.SpringStudy.domain.enums.Gender;
 import com.example.SpringStudy.domain.enums.MemberStatus;
+import com.example.SpringStudy.domain.enums.Role;
 import com.example.SpringStudy.domain.mapping.MemberAgree;
 import com.example.SpringStudy.domain.mapping.MemberMission;
 import com.example.SpringStudy.domain.mapping.MemberPrefer;
@@ -30,11 +31,14 @@ public class Member extends BaseEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-//    @Column(nullable = false, length = 50)
+    @Column(nullable = false, unique = true)
     private String email;
 
-//    @Column(nullable = false, length = 40)
+    @Column(nullable = false)
     private String password;
+
+    @Enumerated(EnumType.STRING)
+    private Role role;
 
     @Column(nullable = false, length = 20)
     private String name;
@@ -83,5 +87,8 @@ public class Member extends BaseEntity {
         prefer.setMember(this);
     }
 
+    public void encodePassword(String password){
+        this.password = password;
+    }
 
 }
