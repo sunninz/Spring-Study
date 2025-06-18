@@ -1,6 +1,9 @@
 package com.example.SpringStudy.service.MemberService;
 
+import com.example.SpringStudy.apiPayload.code.status.ErrorStatus;
 import com.example.SpringStudy.apiPayload.exception.handler.FoodCategoryHandler;
+import com.example.SpringStudy.apiPayload.exception.handler.MemberHandler;
+import com.example.SpringStudy.config.security.jwt.JwtTokenProvider;
 import com.example.SpringStudy.converter.MemberConverter;
 import com.example.SpringStudy.converter.MemberPreferConverter;
 import com.example.SpringStudy.domain.FoodCategory;
@@ -13,11 +16,15 @@ import com.example.SpringStudy.repository.MemberPreferRepository.MemberPreferRep
 import com.example.SpringStudy.repository.MemberRepository.MemberRepository;
 import com.example.SpringStudy.web.dto.request.MemberRequestDTO;
 import com.example.SpringStudy.web.dto.response.MemberInfoResponseDto;
+import com.example.SpringStudy.web.dto.response.MemberResponseDTO;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -35,6 +42,7 @@ public class MemberCommandServiceImpl implements MemberCommandService {
     private final MemberConverter memberConverter;
     private final MemberPreferConverter memberPreferConverter;
     private final PasswordEncoder passwordEncoder;
+    private final JwtTokenProvider jwtTokenProvider;
 
 
     @Override
@@ -80,5 +88,23 @@ public class MemberCommandServiceImpl implements MemberCommandService {
     @Override
     public boolean memberExist(Long value) {
         return memberRepository.existsById(value);
+    }
+
+    @Override
+    public MemberResponseDTO.LoginResultDTO loginMember(MemberRequestDTO.LoginRequestDTO request) {
+        Member member = memberRepository.findByEmail(request.getEmail())
+                .orElseThrow(()-> new MemberHandler(ErrorStatus.MEMBER_NOT_FOUND));
+
+        if(!passwordEncoder.matches(request.getPassword(), member.getPassword())){
+            throw new MemberHandler(ErrorStatus.INVALID_PASSWORD);
+        }
+
+        Authentication authentication = new UsernamePasswordAuthenticationToken(
+                member.getEmail(),null, Collections.singleton(() -> member.getRole().name())
+        );
+
+        String accessToken = jwtTokenProvider.generateToken(authentication);
+
+        return MemberConverter.toLoginResultDTO(member.getId(),accessToken);
     }
 }
