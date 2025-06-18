@@ -14,11 +14,13 @@ public enum ErrorStatus implements BaseErrorCode {
     _BAD_REQUEST(HttpStatus.BAD_REQUEST,"COMMOM400","잘못된 요청입니다."),
     _UNAUTHORIZED(HttpStatus.UNAUTHORIZED,"COMMOM401","인증이 필요합니다."),
     _FORBIDDEN(HttpStatus.FORBIDDEN, "COMMON403", "금지된 요청입니다."),
-
     TEMP_EXCEPTION(HttpStatus.BAD_REQUEST,"TEMP4001","이것은 테스트"),
 
     MEMBER_NOT_FOUND(HttpStatus.BAD_REQUEST,"MEMBER4001","사용자가 없습니다."),
     NICKNAME_NOT_EXIST(HttpStatus.BAD_REQUEST,"MEMBER4002","닉네임은 필수 입니다."),
+    INVALID_PASSWORD(HttpStatus.BAD_REQUEST, "MEMBER4003", "패스워드가 불일치합니다."),
+    DUPLICATE_JOIN_REQUEST(HttpStatus.BAD_REQUEST, "MEMBER4004", "해당 이메일로 이미 가입된 사용자가 존재합니다."),
+    INVALID_TOKEN(HttpStatus.BAD_REQUEST, "MEMBER4005", "유효하지 않은 토큰입니다."),
 
     ARTICLE_NOT_FOUND(HttpStatus.NOT_FOUND,"ARTICLE4001","게시글이 없습니다."),
     FOOD_CATEGORY_NOT_FOUND(HttpStatus.BAD_REQUEST,"CATEGORY4001","해당 카테고리를 찾을 수 없습니다."),

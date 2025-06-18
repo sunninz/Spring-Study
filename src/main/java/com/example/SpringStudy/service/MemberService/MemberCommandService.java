@@ -3,6 +3,7 @@ package com.example.SpringStudy.service.MemberService;
 import com.example.SpringStudy.domain.Member;
 import com.example.SpringStudy.web.dto.request.MemberRequestDTO;
 import com.example.SpringStudy.web.dto.response.MemberInfoResponseDto;
+import com.example.SpringStudy.web.dto.response.MemberResponseDTO;
 
 import java.util.List;
 
@@ -22,4 +23,7 @@ public interface MemberCommandService {
 
     // 회원 검증
     boolean memberExist(Long value);
+
+    // 로그인
+    MemberResponseDTO.LoginResultDTO loginMember(MemberRequestDTO.LoginRequestDTO request);
 }
