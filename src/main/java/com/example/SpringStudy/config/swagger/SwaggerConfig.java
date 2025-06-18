@@ -1,4 +1,4 @@
-package com.example.SpringStudy.config;
+package com.example.SpringStudy.config.swagger;
 
 
 
